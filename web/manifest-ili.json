@@ -1,0 +1,14 @@
+{
+  "name": "CYD Mini OS",
+  "version": "1.0",
+  "new_install_prompt_erase": true,
+  "builds": [{
+    "chipFamily": "ESP32",
+    "parts": [
+      {"path": "ili/bootloader.bin", "offset": 4096},
+      {"path": "ili/partitions.bin", "offset": 32768},
+      {"path": "ili/boot_app0.bin",  "offset": 57344},
+      {"path": "ili/firmware.bin",   "offset": 65536}
+    ]
+  }]
+}

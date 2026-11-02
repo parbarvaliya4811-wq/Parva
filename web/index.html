@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CYD Mini OS Flasher</title>
+<script type="module" src="https://unpkg.com/esp-web-tools@10.1.1/dist/web/install-button.js?module"></script>
+<style>
+:root{--bg:#0b1020;--card:#151c33;--tx:#e8ecff;--dim:#8d97c4;--ac:#22d3ee}
+@media(prefers-color-scheme:light){:root{--bg:#f2f5ff;--card:#fff;--tx:#10162b;--dim:#586088}}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100vh}
+main{max-width:520px;padding:24px}
+.card{background:var(--card);border-radius:14px;padding:20px;margin:14px 0}
+h1{margin:0 0 6px}p,li{color:var(--dim);line-height:1.5}
+</style></head><body><main>
+<h1>CYD Mini OS</h1>
+<p>Flash straight from your browser (Chrome or Edge). Plug the board in with a data USB cable first.</p>
+<div class="card"><b>Standard board (1 USB port, ILI9341)</b><br><br>
+<esp-web-install-button manifest="manifest-ili.json"></esp-web-install-button></div>
+<div class="card"><b>2-USB board (micro + USB-C, ST7789)</b><br><br>
+<esp-web-install-button manifest="manifest-st.json"></esp-web-install-button></div>
+<p>Colors look inverted? Open Setup on the device and toggle "Invert colors". If the port is not listed, hold BOOT while clicking Install.</p>
+</main></body></html>
