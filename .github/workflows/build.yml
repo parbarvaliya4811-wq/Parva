@@ -1,0 +1,41 @@
+name: Build firmware and publish web flasher
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install platformio
+      - run: pio run
+      - name: Collect files
+        run: |
+          mkdir -p site/ili site/st
+          BOOT=$HOME/.platformio/packages/framework-arduinoespressif32/tools/partitions/boot_app0.bin
+          for pair in cyd:ili cyd2usb:st; do
+            env=${pair%%:*}; dir=${pair##*:}
+            cp .pio/build/$env/bootloader.bin .pio/build/$env/partitions.bin .pio/build/$env/firmware.bin site/$dir/
+            cp "$BOOT" site/$dir/boot_app0.bin
+          done
+          cp web/* site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4
